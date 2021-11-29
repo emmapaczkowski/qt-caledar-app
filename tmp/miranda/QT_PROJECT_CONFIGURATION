@@ -1,0 +1,65 @@
+IMPORTANT INFO FOR QT PROJECT FOR OUR CALENDAR APPLICATION
+
+This is how my (yasin) working directory within the repo on my computer is set up for the files relevant to the project.
+Make sure your directory the same way for things to work. This is also how Qt did it.
+
+Team_Miranda_Calendar_App.pro			// This is the project file. This loads the Qt project based on YOUR PERSONAL Qt configuration 
+										// Ignore this file in git! This is a file you need to create/set up on your local machine by creating a Qt project.
+										// Modify your file to include the correct source files. Model it after the .pro file structure down below. It will likely
+										// be the exact same or similar, but don't track it just in case your system needs something different because nobody else 
+										// will be able to run the project if they clone your project file from the repository.
+
+resources.qrc
+src/
+	/event.cpp
+	/event.h
+	/main.cpp
+	/sqleventmodel.cpp
+	/sqleventmodel.h
+	/src.pri							// If you need more source files, add them to the src folder and update the .pri file. Be careful about what is changed
+										// here. Only needs to be changed if source files are added/deleted. Should work fine if your directory is set up like this.
+										
+qml/
+	/main.qml							// This is the .qml file for the GUI
+	
+shared/
+	   /qtquickcontrolsapplication.h	// This is a Qt library file for running Qt quick controls applications. Do not change it unless we have all
+										// decided that there is a good reason to (there likely won't be)
+	
+	   /shared.pri						// Project include file for shared material. Don't change this, it should work if your directory is set up like this
+										
+images/
+		/eventindicator.png				// Image file used by the GUI to indicate days with events - this is stock with the Qt calendar example, and can be 
+										// changed, removed or replaced, provided the .qml file is changed accordingly
+										
+This is what my .pro file looks like (what it contains) - idk about mac, but everyone using Qt creator IDE on Windows should have basically the same:
+
+QT += qml quick sql
+TARGET = Team_Miranda_Calendar_App
+
+include(src/src.pri)
+include(shared/shared.pri)
+
+OTHER_FILES += qml/main.qml
+
+RESOURCES += resources.qrc
+
+target.path = $$PWD
+INSTALLS += target
+
+This is what the src.pri file looks like:
+
+SOURCES += \
+    $$PWD/event.cpp \
+    $$PWD/main.cpp \
+    $$PWD/sqleventmodel.cpp
+
+
+HEADERS += \
+    $$PWD/event.h \
+    $$PWD/sqleventmodel.h
+	
+To get the project to run, clone what is in the repo and set up your working directory like above. Create a Qt project in your working directory and remove any
+files generated - you want a clean, empty project (basically just the .pro file). Set up your .pro file like the one above, or however is necessary to include the 
+source and other files from the repo. Save the .pro file and it should update. If all goes well, the project should be able to run now barring any errors in the 
+source code.
